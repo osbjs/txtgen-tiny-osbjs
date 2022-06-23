@@ -13,8 +13,8 @@ export function measureText(text: string): { width: number; height: number } {
 	context.textBaseline = 'top'
 
 	const measure = context.measureText(text)
-	const height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent + top + bottom
-	const width = measure.actualBoundingBoxLeft + measure.actualBoundingBoxRight + left + right
+	const height = Math.abs(measure.actualBoundingBoxAscent) + measure.actualBoundingBoxDescent + top + bottom
+	const width = Math.abs(measure.actualBoundingBoxLeft) + measure.actualBoundingBoxRight + left + right
 
 	return { width, height }
 }
