@@ -24,7 +24,7 @@ You can now create text images. `createText` will call `createSprite` under the 
 ```js
 const { createText } = require('@osbjs/txtgen-tiny-osbjs')
 
-createText('Hello', 'Background', 'Center', { x: 320, y: 240 }, () => {
+createText('Hello', 'Background', 'Centre', { x: 320, y: 240 }, () => {
 	fade(0, 1000, 0, 1)
 })
 ```
@@ -54,7 +54,7 @@ let letterX = 0
 
 text.split('').forEach(letter => {
   	createText(letter, 'Background', 'Centre', { x: 320, y: 240 } ,({ width, height }) => {
-    	const postion = getTexturePositionForAlignment({ x: letterX, y: 240 }, 'Center', width, height)
+    	const postion = getTexturePositionForAlignment({ x: letterX, y: 240 }, 'Centre', width, height)
 		moveAtTime(1000, postion)
     	letterX += width
   	})
