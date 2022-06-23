@@ -1,6 +1,6 @@
 export { createText } from 'createText'
 export * from 'isValidParams'
-export { createTxtGenContext, TextGeneratorContext, useTxtGenContext } from 'txtGenContext'
+export { createTxtGenContext, TextGeneratorContext, useFont, useTxtGenContext } from 'txtGenContext'
 export { FontProps } from 'types/FontProps'
 export { Padding } from 'types/Padding'
 export { TextImage } from 'types/TextImage'

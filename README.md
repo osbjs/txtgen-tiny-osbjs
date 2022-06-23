@@ -76,7 +76,7 @@ let letterX = 320 - lineWidth / 2
 ## API documentation
 ### createTxtGenContext
 ```ts
-function createTxtGenContext(osbPath: string, beatmapFolderPath: string, fontProps: FontProps): TextGeneratorContext
+function createTxtGenContext(osbFolderPath: string, beatmapFolderPath: string, fontProps: FontProps): TextGeneratorContext
 type FontProps = {
 	name: string
 	size: number
@@ -85,7 +85,7 @@ type FontProps = {
 }
 ```
 Create a new text generator context.
-* **osbPath**: Subfolder where the images will be generated into.
+* **osbFolderPath**: Subfolder where the images will be generated into.
 * **beatmapFolderPath**: Full path to beatmap folder.
 * **fontProps**: Font properties used to generate text.
 
@@ -103,6 +103,7 @@ type TextImage = {
 	height: number
 	text: string
 	path: string
+	osbPath: string
 }
 ```
 Generate image with given text and create a new sprite for that image.

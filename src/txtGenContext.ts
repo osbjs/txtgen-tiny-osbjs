@@ -10,7 +10,7 @@ let TEXT_GENERATOR_CONTEXT: TextGeneratorContext | null = null
 
 export type TextGeneratorContext = {
 	fontProps: FontProps
-	osbPath: string
+	osbFolderPath: string
 	beatmapFolderPath: string
 	createdTextImages: TextImage[]
 }
@@ -18,14 +18,14 @@ export type TextGeneratorContext = {
 /**
  * Create a new text generator context.
  *
- * @param osbPath Subfolder where the images will be generated into.
+ * @param osbFolderPath Subfolder where the images will be generated into.
  * @param beatmapFolderPath Full path to beatmap folder.
  * @param fontProps Font properties used to generate text.
  */
-export function createTxtGenContext(osbPath: string, beatmapFolderPath: string, fontProps: FontProps): TextGeneratorContext {
+export function createTxtGenContext(osbFolderPath: string, beatmapFolderPath: string, fontProps: FontProps): TextGeneratorContext {
 	return {
 		fontProps,
-		osbPath,
+		osbFolderPath,
 		beatmapFolderPath,
 		createdTextImages: [],
 	}

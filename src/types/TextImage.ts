@@ -3,4 +3,5 @@ export type TextImage = {
 	height: number
 	text: string
 	path: string
+	osbPath: string
 }
