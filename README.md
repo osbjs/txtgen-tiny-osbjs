@@ -54,7 +54,7 @@ let letterX = 0
 
 text.split('').forEach(letter => {
   	createText(letter, 'Background', 'Centre', { x: 320, y: 240 } ,({ width, height }) => {
-    	const postion = getTexturePositionForAlignment({ letterX, y: 240 }, 'Center', width, height)
+    	const postion = getTexturePositionForAlignment({ x: letterX, y: 240 }, 'Center', width, height)
 		moveAtTime(1000, postion)
     	letterX += width
   	})
