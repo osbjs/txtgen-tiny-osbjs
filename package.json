@@ -1,9 +1,10 @@
 {
 	"name": "@osbjs/txtgen-tiny-osbjs",
-	"version": "1.0.0-a",
+	"version": "1.0.1-a",
 	"description": "A text-to-image generator wrapper for tiny-osbjs.",
 	"main": "dist/cjs/index.js",
 	"module": "dist/es/index.js",
+	"types": "dist/types/index.d.ts",
 	"scripts": {
 		"format": "prettier --write \"src/**/*.ts\"",
 		"build": "rollup -c",
