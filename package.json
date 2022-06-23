@@ -1,6 +1,6 @@
 {
 	"name": "@osbjs/txtgen-tiny-osbjs",
-	"version": "1.0.0",
+	"version": "1.0.0-a",
 	"description": "A text-to-image generator wrapper for tiny-osbjs.",
 	"main": "dist/cjs/index.js",
 	"module": "dist/es/index.js",
@@ -31,7 +31,7 @@
 		"fs-extra": "^10.1.0"
 	},
 	"peerDependencies": {
-		"@osbjs/tiny-osbjs": "^1.3.3"
+		"@osbjs/tiny-osbjs": "^1.5.0"
 	},
 	"exports": {
 		"require": "./dist/cjs/index.js",

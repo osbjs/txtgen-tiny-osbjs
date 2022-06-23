@@ -1,7 +1,8 @@
 import { getCanvasContext, getCanvasInstance, getTxtGenContext } from 'txtGenContext'
 
-export function measureText(text: string): TextMetrics {
-	const { name, size } = getTxtGenContext().fontProps
+export function measureText(text: string): { width: number; height: number } {
+	const { name, size, padding } = getTxtGenContext().fontProps
+	const { top, bottom, left, right } = padding
 	const canvas = getCanvasInstance()
 	const context = getCanvasContext()
 
@@ -11,5 +12,9 @@ export function measureText(text: string): TextMetrics {
 	context.font = `${size}px "${name}"`
 	context.textBaseline = 'top'
 
-	return context.measureText(text)
+	const measure = context.measureText(text)
+	const height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent + top + bottom
+	const width = measure.actualBoundingBoxLeft + measure.actualBoundingBoxRight + left + right
+
+	return { width, height }
 }

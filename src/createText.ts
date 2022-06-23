@@ -2,12 +2,12 @@ import { createSprite, Layer, Origin, Vector2 } from '@osbjs/tiny-osbjs'
 import { outputFileSync } from 'fs-extra'
 import { measureText } from 'measureText'
 import { join } from 'path'
-import { rgbToHex } from 'rgbToHex'
+import { rgbToHex } from 'utils/colorConverters'
 import { getCanvasContext, getCanvasInstance, getTxtGenContext, resizeCanvas } from 'txtGenContext'
 import { TextImage } from 'types/TextImage'
 
 /**
- * Generate image with given text and create Sprite for that image.
+ * Generate image with given text and create a new sprite for that image.
  *
  * @param text Text to generate
  * @param layer The layer the object appears on.
@@ -18,22 +18,17 @@ import { TextImage } from 'types/TextImage'
 export function createText(text: string, layer: Layer, origin: Origin, initialPosition: Vector2, invokeFunction: (textImage: TextImage) => void) {
 	const { createdTextImages, osbPath } = getTxtGenContext()
 
-	let textImage = createdTextImages.find((textImage) => textImage.text === text)
-	if (!textImage) textImage = generateTextImage(text)
+	let textImage = createdTextImages.find((textImage) => textImage.text === text) || generateTextImage(text)
 
-	const fn = invokeFunction(textImage)
-
-	createSprite(osbPath, layer, origin, initialPosition, () => fn)
+	createSprite(osbPath, layer, origin, initialPosition, () => invokeFunction(textImage))
 }
 
 export function generateTextImage(text: string): TextImage {
 	const { fontProps, osbPath, beatmapFolderPath, createdTextImages } = getTxtGenContext()
 	const { name, size, color, padding } = fontProps
-	const { top, bottom, left, right } = padding
+	const { top, left } = padding
 
-	const measure = measureText(text)
-	const height = measure.actualBoundingBoxAscent + measure.actualBoundingBoxDescent + top + bottom
-	const width = measure.actualBoundingBoxLeft + measure.actualBoundingBoxRight + left + right
+	const { width, height } = measureText(text)
 
 	const canvas = getCanvasInstance()
 	const ctx = getCanvasContext()

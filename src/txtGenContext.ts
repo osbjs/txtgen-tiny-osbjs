@@ -1,10 +1,10 @@
-import { createCanvas } from 'canvas'
+import { createCanvas, registerFont } from 'canvas'
 import { isValidTxtGenContext } from 'isValidParams'
 import { FontProps } from 'types/FontProps'
 import { TextImage } from 'types/TextImage'
 
-const CANVAS_INSTANCE = createCanvas(1, 1)
-const CANVAS_CONTEXT = CANVAS_INSTANCE.getContext('2d')
+let CANVAS_INSTANCE = createCanvas(1, 1)
+let CANVAS_CONTEXT = CANVAS_INSTANCE.getContext('2d')
 
 let TEXT_GENERATOR_CONTEXT: TextGeneratorContext | null = null
 
@@ -15,6 +15,13 @@ export type TextGeneratorContext = {
 	createdTextImages: TextImage[]
 }
 
+/**
+ * Create a new text generator context.
+ *
+ * @param osbPath Subfolder where the images will be generated into.
+ * @param beatmapFolderPath Full path to beatmap folder.
+ * @param fontProps Font properties used to generate text.
+ */
 export function createTxtGenContext(osbPath: string, beatmapFolderPath: string, fontProps: FontProps): TextGeneratorContext {
 	return {
 		fontProps,
@@ -24,6 +31,11 @@ export function createTxtGenContext(osbPath: string, beatmapFolderPath: string, 
 	}
 }
 
+/**
+ * Specify the text generator context to use.
+ *
+ * @param context Text generator context.
+ */
 export function useTxtGenContext(context: TextGeneratorContext) {
 	if (!context || !isValidTxtGenContext(context)) throw new TypeError('You must use the context returned from `createTxtGenContext()`.')
 
@@ -47,4 +59,16 @@ export function getCanvasContext() {
 export function resizeCanvas(width: number, height: number) {
 	getCanvasInstance().width = width
 	getCanvasInstance().height = height
+}
+
+/**
+ * Specify a non-system font to use.
+ *
+ * @param path Path to the font file.
+ * @param family Font family name.
+ */
+export function useFont(path: string, family: string) {
+	registerFont(path, { family })
+	CANVAS_INSTANCE = createCanvas(1, 1)
+	CANVAS_CONTEXT = CANVAS_INSTANCE.getContext('2d')
 }
