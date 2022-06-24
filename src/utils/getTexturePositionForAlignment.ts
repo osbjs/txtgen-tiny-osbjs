@@ -19,28 +19,28 @@ import { Origin, Vector2 } from '@osbjs/tiny-osbjs'
  * @param width Text image's width.
  * @param height Text image's height.
  */
-export function getTexturePositionForAlignment(position: Vector2, origin: Origin, width: number, height: number): Vector2 {
+export function getTexturePositionForAlignment(position: Vector2, origin: Origin, width: number, height: number, scale: number = 1): Vector2 {
 	const { x, y } = position
 
 	switch (origin) {
 		case 'TopLeft':
-			return { x: x, y: y }
+			return { x, y }
 		case 'TopCentre':
-			return { x: x + width * 0.5, y }
+			return { x: x + width * 0.5 * scale, y }
 		case 'TopRight':
-			return { x: x + width, y }
+			return { x: x + width * scale, y }
 		case 'CentreLeft':
-			return { x: x, y: y + height * 0.5 }
+			return { x, y: y + height * 0.5 * scale }
 		case 'Centre':
-			return { x: x + width * 0.5, y: y + height * 0.5 }
+			return { x: x + width * 0.5 * scale, y: y + height * 0.5 * scale }
 		case 'CentreRight':
-			return { x: x + width, y: y + height * 0.5 }
+			return { x: x + width * scale, y: y + height * 0.5 * scale }
 		case 'BottomLeft':
-			return { x, y: y + height }
+			return { x, y: y + height * scale }
 		case 'BottomCentre':
-			return { x: x + width * 0.5, y: y + height }
+			return { x: x + width * 0.5 * scale, y: y + height * scale }
 		case 'BottomRight':
-			return { x: x + width, y: y + height }
+			return { x: x + width * scale, y: y + height * scale }
 
 		default:
 			throw new Error(origin + ' is not a valid origin.')
