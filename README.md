@@ -33,8 +33,18 @@ You can have multiple text generator context and switch between them if needed.
 ```ts
 const { createTxtGenContext, useTxtGenContext } = require('@osbjs/txtgen-tiny-osbjs')
 
-const txtGenContext = createTxtGenContext()
-useTxtGenContext(txtGenContext)
+const font1Context = createTxtGenContext()
+const font2Context = createTxtGenContext()
+
+useTxtGenContext(font1Context)
+// createText with font1...
+
+useTxtGenContext(font2Context)
+// createText with font2...
+
+useTxtGenContext(font1Context)
+// createText with font1...
+// etc...
 ```
 
 If you want to use non-system fonts, specify it.
