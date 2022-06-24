@@ -110,7 +110,7 @@ Generate image with given text and create a new sprite for that image.
 
 ### getTexturePositionForAlignment
 ```ts
-function getTexturePositionForAlignment(position: Vector2, origin: Origin, width: number, height: number): Vector2
+function getTexturePositionForAlignment(position: Vector2, origin: Origin, width: number, height: number, scale: number = 1): Vector2
 ```
 See [#Usage](#usage) example.
 
