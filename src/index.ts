@@ -1,4 +1,4 @@
-export { createText } from 'createText'
+export { createText, createOutlineText } from 'createText'
 export * from 'isValidParams'
 export { clearOutputFolder, createTxtGenContext, TextGeneratorContext, useFont, useTxtGenContext } from 'txtGenContext'
 export { FontProps } from 'types/FontProps'
