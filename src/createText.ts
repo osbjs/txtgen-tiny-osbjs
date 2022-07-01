@@ -18,12 +18,36 @@ import { rgbToHex } from 'utils/colorConverters'
 export function createText(text: string, layer: Layer, origin: Origin, initialPosition: Vector2, invokeFunction: (textImage: TextImage) => void) {
 	const { createdTextImages } = getTxtGenContext()
 
-	let textImage = createdTextImages.find((textImage) => textImage.text === text) || generateTextImage(text)
+	let textImage = createdTextImages.find((textImage) => textImage.text === text) || generateTextImage(text, false)
 
 	createSprite(textImage.osbPath, layer, origin, initialPosition, () => invokeFunction(textImage))
 }
 
-export function generateTextImage(text: string): TextImage {
+/**
+ * Generate image with given text with only outline and create a new sprite for that image.
+ * It's recommended to use a seperate context for this.
+ *
+ * @param text Text to generate
+ * @param layer The layer the object appears on.
+ * @param origin The sprite's origin
+ * @param initialPosition Where the sprite should be by default.
+ * @param invokeFunction The commands that should be run when the sprite is created.
+ */
+export function createOutlineText(
+	text: string,
+	layer: Layer,
+	origin: Origin,
+	initialPosition: Vector2,
+	invokeFunction: (textImage: TextImage) => void
+) {
+	const { createdTextImages } = getTxtGenContext()
+
+	let textImage = createdTextImages.find((textImage) => textImage.text === text) || generateTextImage(text, true)
+
+	createSprite(textImage.osbPath, layer, origin, initialPosition, () => invokeFunction(textImage))
+}
+
+function generateTextImage(text: string, outline: boolean): TextImage {
 	const { fontProps, osbFolderPath, beatmapFolderPath, createdTextImages } = getTxtGenContext()
 	const { name, size, color, padding } = fontProps
 	const { top, left } = padding
@@ -36,9 +60,13 @@ export function generateTextImage(text: string): TextImage {
 
 	ctx.font = `${size}px "${name}"`
 	ctx.textBaseline = 'top'
-	ctx.fillStyle = rgbToHex(color)
-	ctx.fillText(text, left, top)
-
+	if (!outline) {
+		ctx.fillStyle = rgbToHex(color)
+		ctx.fillText(text, left, top)
+	} else {
+		ctx.strokeStyle = rgbToHex(color)
+		ctx.strokeText(text, left, top)
+	}
 	// eject
 	const osbPath = join(osbFolderPath, `_${createdTextImages.length}.png`)
 	const path = join(beatmapFolderPath, osbPath)

@@ -106,9 +106,16 @@ function useTxtGenContext(context: TextGeneratorContext)
 ```
 Specify the text generator context to use.
 
-### createText
+### createText && createOutlineText
 ```ts
 function createText(text: string, layer: Layer, origin: Origin, initialPosition: Vector2, invokeFunction: (textImage: TextImage) => void)
+function createOutlineText(
+	text: string,
+	layer: Layer,
+	origin: Origin,
+	initialPosition: Vector2,
+	invokeFunction: (textImage: TextImage) => void
+)
 type TextImage = {
 	width: number
 	height: number
@@ -117,7 +124,7 @@ type TextImage = {
 	osbPath: string
 }
 ```
-Generate image with given text and create a new sprite for that image.
+Generate image with given text and create a new sprite for that image. It's recommended to use seperate contexts if you are using both `createText` and `createOutlineText`.
 
 ### getTexturePositionForAlignment
 ```ts
