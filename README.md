@@ -7,7 +7,7 @@ npm i @osbjs/tiny-osbjs @osbjs/txtgen-tiny-osbjs
 ```
 
 ## Usage
-Create a text generator context and set it for use.
+Create a text generator context and set it for use. Make sure to clear the output folder after you create the context.
 ```js
 const { createTxtGenContext, useTxtGenContext } = require('@osbjs/txtgen-tiny-osbjs')
 
@@ -16,6 +16,7 @@ const txtGenContext = createTxtGenContext('sb/lyrics', 'path/to/beatmap/folder',
 	size: 72,
 	color: { r: 0, g: 0, b: 0 }
 })
+clearOutputFolder(txtGenContext)
 useTxtGenContext(txtGenContext)
 ```
 
@@ -51,7 +52,7 @@ If you want to use non-system fonts, specify it.
 ```js
 const { createText, useFont } = require('@osbjs/txtgen-tiny-osbjs')
 
-useFont('./FontName.ttf', 'FontName')
+useFont('FontName.ttf', 'FontName')
 // createText...
 ```
 
@@ -123,6 +124,18 @@ Generate image with given text and create a new sprite for that image.
 function getTexturePositionForAlignment(position: Vector2, origin: Origin, width: number, height: number, scale: number = 1): Vector2
 ```
 See [#Usage](#usage) example.
+
+### useFont
+```ts
+function useFont(path: string, family: string)
+```
+Specify a non-system font to use.
+
+### clearOutputFolder
+```ts
+function clearOutputFolder(context: TextGeneratorContext)
+```
+Clear output folder of this current context. This should be called once for each text generator context right after it is created.
 
 ### Measure line
 ```ts

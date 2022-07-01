@@ -1,5 +1,7 @@
 import { createCanvas, registerFont } from 'canvas'
+import { emptyDirSync } from 'fs-extra'
 import { isValidTxtGenContext } from 'isValidParams'
+import path from 'path'
 import { FontProps } from 'types/FontProps'
 import { TextImage } from 'types/TextImage'
 
@@ -64,11 +66,23 @@ export function resizeCanvas(width: number, height: number) {
 /**
  * Specify a non-system font to use.
  *
- * @param path Path to the font file.
+ * @param path Full path to the font file. Relative path will not work as intended.
  * @param family Font family name.
  */
 export function useFont(path: string, family: string) {
 	registerFont(path, { family })
 	CANVAS_INSTANCE = createCanvas(1, 1)
 	CANVAS_CONTEXT = CANVAS_INSTANCE.getContext('2d')
+}
+
+/**
+ * Clear output folder of this current context. This should be called once for each text generator context right after it is created.
+ * @param context Context to be selected.
+ */
+export function clearOutputFolder(context: TextGeneratorContext) {
+	const { beatmapFolderPath, osbFolderPath } = context
+	const outputFolder = path.join(beatmapFolderPath, osbFolderPath)
+	emptyDirSync(outputFolder)
+
+	console.log(`Output folder "${outputFolder}" is cleared.`)
 }
