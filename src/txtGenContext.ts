@@ -15,6 +15,7 @@ export type TextGeneratorContext = {
 	osbFolderPath: string
 	beatmapFolderPath: string
 	createdTextImages: TextImage[]
+	memoizedMetrics: { width: number; height: number; text: string }[]
 }
 
 /**
@@ -30,6 +31,7 @@ export function createTxtGenContext(osbFolderPath: string, beatmapFolderPath: st
 		osbFolderPath,
 		beatmapFolderPath,
 		createdTextImages: [],
+		memoizedMetrics: [],
 	}
 }
 

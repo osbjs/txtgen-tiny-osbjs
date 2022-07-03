@@ -28,6 +28,7 @@ export function isValidTxtGenContext(context: TextGeneratorContext): context is 
 		isValidFontProps(context.fontProps) &&
 		typeof context.beatmapFolderPath === 'string' &&
 		typeof context.osbFolderPath === 'string' &&
-		Array.isArray(context.createdTextImages)
+		Array.isArray(context.createdTextImages) &&
+		Array.isArray(context.memoizedMetrics)
 	)
 }
