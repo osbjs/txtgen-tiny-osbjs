@@ -25,7 +25,7 @@ export function measureLineHeight(
 	line: string,
 	reducer: (prevHeight: number, currentHeight: number) => number = (prevHeight, currentHeight) => prevHeight + currentHeight
 ) {
-	const textHeightArr = line.split('').map((text) => measureText(text).width)
+	const textHeightArr = line.split('').map((text) => measureText(text).height)
 
 	return textHeightArr.reduce(reducer, 0)
 }
