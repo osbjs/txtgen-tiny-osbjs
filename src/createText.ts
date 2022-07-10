@@ -18,7 +18,7 @@ import { rgbToHex } from 'utils/colorConverters'
 export function createText(text: string, layer: Layer, origin: Origin, initialPosition: Vector2, invokeFunction: (textImage: TextImage) => void) {
 	const { createdTextImages } = getTxtGenContext()
 
-	let textImage = createdTextImages.find((textImage) => textImage.text === text) || generateTextImage(text, false)
+	let textImage = createdTextImages.find((textImage) => textImage.text === text && !textImage.isOutline) || generateTextImage(text, false)
 
 	createSprite(textImage.osbPath, layer, origin, initialPosition, () => invokeFunction(textImage))
 }
@@ -42,12 +42,12 @@ export function createOutlineText(
 ) {
 	const { createdTextImages } = getTxtGenContext()
 
-	let textImage = createdTextImages.find((textImage) => textImage.text === text) || generateTextImage(text, true)
+	let textImage = createdTextImages.find((textImage) => textImage.text === text && textImage.isOutline) || generateTextImage(text, true)
 
 	createSprite(textImage.osbPath, layer, origin, initialPosition, () => invokeFunction(textImage))
 }
 
-function generateTextImage(text: string, outline: boolean): TextImage {
+function generateTextImage(text: string, isOutline: boolean): TextImage {
 	const { fontProps, osbFolderPath, beatmapFolderPath, createdTextImages } = getTxtGenContext()
 	const { name, size, color, padding } = fontProps
 	const { top, left } = padding
@@ -60,7 +60,7 @@ function generateTextImage(text: string, outline: boolean): TextImage {
 
 	ctx.font = `${size}px "${name}"`
 	ctx.textBaseline = 'top'
-	if (!outline) {
+	if (!isOutline) {
 		ctx.fillStyle = rgbToHex(color)
 		ctx.fillText(text, left, top)
 	} else {
@@ -73,7 +73,7 @@ function generateTextImage(text: string, outline: boolean): TextImage {
 	const buffer = Buffer.from(canvas.toDataURL('image/png').replace('data:image/png;base64,', ''), 'base64')
 	outputFileSync(path, buffer)
 
-	const textImage: TextImage = { width, height, text, path, osbPath }
+	const textImage: TextImage = { width, height, text, path, osbPath, isOutline }
 	createdTextImages.push(textImage)
 
 	return textImage

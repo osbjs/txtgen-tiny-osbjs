@@ -14,7 +14,7 @@ export function measureText(text: string): { width: number; height: number } {
 	const canvas = getCanvasInstance()
 	const context = getCanvasContext()
 
-	// 2000 is big enough
+	// 2000 is big enough for most cases
 	canvas.width = 2000
 	canvas.height = 2000
 	context.font = `${size}px "${name}"`

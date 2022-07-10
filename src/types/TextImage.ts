@@ -4,4 +4,5 @@ export type TextImage = {
 	text: string
 	path: string
 	osbPath: string
+	isOutline: boolean
 }
