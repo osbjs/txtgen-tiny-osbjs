@@ -1,5 +1,6 @@
-export { createText, createOutlineText } from 'createText'
+export { createOutlineText, createText } from 'createText'
 export * from 'isValidParams'
+export { measureText } from 'measureText'
 export { clearOutputFolder, createTxtGenContext, TextGeneratorContext, useFont, useTxtGenContext } from 'txtGenContext'
 export { FontProps } from 'types/FontProps'
 export { Padding } from 'types/Padding'
