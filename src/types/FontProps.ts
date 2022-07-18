@@ -6,4 +6,5 @@ export type FontProps = {
 	size: number
 	color: Color
 	padding: Padding
+	isItalic: boolean
 }

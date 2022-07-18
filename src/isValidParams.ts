@@ -18,6 +18,7 @@ export function isValidFontProps(fontProps: FontProps): fontProps is FontProps {
 		typeof fontProps == 'object' &&
 		typeof fontProps.size == 'number' &&
 		typeof fontProps.name == 'string' &&
+		typeof fontProps.isItalic == 'boolean' &&
 		isValidColor(fontProps.color) &&
 		isValidPadding(fontProps.padding)
 	)

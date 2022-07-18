@@ -49,7 +49,7 @@ export function createOutlineText(
 
 function generateTextImage(text: string, isOutline: boolean): TextImage {
 	const { fontProps, osbFolderPath, beatmapFolderPath, createdTextImages } = getTxtGenContext()
-	const { name, size, color, padding } = fontProps
+	const { name, size, color, padding, isItalic } = fontProps
 	const { top, left } = padding
 
 	const { width, height } = measureText(text)
@@ -58,7 +58,7 @@ function generateTextImage(text: string, isOutline: boolean): TextImage {
 	const ctx = getCanvasContext()
 	resizeCanvas(width, height)
 
-	ctx.font = `${size}px "${name}"`
+	ctx.font = `${isItalic ? 'italic' : ''} ${size}px "${name}"`
 	ctx.textBaseline = 'top'
 	if (!isOutline) {
 		ctx.fillStyle = rgbToHex(color)
@@ -67,6 +67,7 @@ function generateTextImage(text: string, isOutline: boolean): TextImage {
 		ctx.strokeStyle = rgbToHex(color)
 		ctx.strokeText(text, left, top)
 	}
+
 	// eject
 	const osbPath = join(osbFolderPath, `_${createdTextImages.length}.png`)
 	const path = join(beatmapFolderPath, osbPath)
