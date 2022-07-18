@@ -1,4 +1,3 @@
-import { isValidColor } from '@osbjs/tiny-osbjs'
 import { TextGeneratorContext } from 'txtGenContext'
 import { FontProps } from 'types/FontProps'
 import { Padding } from 'types/Padding'
@@ -19,7 +18,6 @@ export function isValidFontProps(fontProps: FontProps): fontProps is FontProps {
 		typeof fontProps.size == 'number' &&
 		typeof fontProps.name == 'string' &&
 		typeof fontProps.isItalic == 'boolean' &&
-		isValidColor(fontProps.color) &&
 		isValidPadding(fontProps.padding)
 	)
 }

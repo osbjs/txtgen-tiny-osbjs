@@ -14,7 +14,13 @@ const { createTxtGenContext, useTxtGenContext } = require('@osbjs/txtgen-tiny-os
 const txtGenContext = createTxtGenContext('sb/lyrics', 'path/to/beatmap/folder', {
 	name: 'Arial',
 	size: 72,
-	color: { r: 0, g: 0, b: 0 }
+	isItalic: false,
+	padding: {
+		top: 0,
+		bottom: 0,
+		left: 0,
+		right: 0
+	}
 })
 clearOutputFolder(txtGenContext)
 useTxtGenContext(txtGenContext)
@@ -48,28 +54,25 @@ useTxtGenContext(font1Context)
 // etc...
 ```
 
-If you want to use non-system fonts, specify it.
+If you want to use non-system fonts, specify it before creating and using context.
 ```js
 const { createText, useFont } = require('@osbjs/txtgen-tiny-osbjs')
 
 useFont('FontName.ttf', 'FontName')
-// createText...
-```
-
-If you want to apply effects to each letter, you may want to use `getTexturePositionForAlignment`.
-```js
-const { createText } = require('@osbjs/txtgen-tiny-osbjs')
-
-let text = 'Hello'
-let letterX = 0
-
-text.split('').forEach(letter => {
-  	createText(letter, 'Background', 'Centre', { x: 320, y: 240 } ,({ width, height }) => {
-    	const postion = getTexturePositionForAlignment({ x: letterX, y: 240 }, 'Centre', width, height)
-		moveAtTime(1000, postion)
-    	letterX += width
-  	})
+const txtGenContext = createTxtGenContext('sb/lyrics', 'path/to/beatmap/folder', {
+	name: 'Arial',
+	size: 72,
+	isItalic: false,
+	padding: {
+		top: 0,
+		bottom: 0,
+		left: 0,
+		right: 0
+	}
 })
+clearOutputFolder(txtGenContext)
+useTxtGenContext(txtGenContext)
+// createText...
 ```
 
 If you need to calculate line width/height of a straight line of text, we've got you covered.
@@ -91,8 +94,8 @@ function createTxtGenContext(osbFolderPath: string, beatmapFolderPath: string, f
 type FontProps = {
 	name: string
 	size: number
-	color: Color
 	padding: Padding
+	isItalic: boolean
 }
 ```
 Create a new text generator context.
@@ -108,13 +111,25 @@ Specify the text generator context to use.
 
 ### createText && createOutlineText
 ```ts
-function createText(text: string, layer: Layer, origin: Origin, initialPosition: Vector2, invokeFunction: (textImage: TextImage) => void)
+function createText(
+	text: string, 
+	layer: Layer, 
+	origin: Origin, 
+	initialPosition: Vector2, 
+	invokeFunction: (
+		textImage: TextImage, 
+		getTopLeftPosition: (position: Vector2, scale?: number) => Vector2
+	) => void
+)
 function createOutlineText(
 	text: string,
 	layer: Layer,
 	origin: Origin,
 	initialPosition: Vector2,
-	invokeFunction: (textImage: TextImage) => void
+	invokeFunction: (
+		textImage: TextImage, 
+		getTopLeftPosition: (position: Vector2, scale?: number) => Vector2
+	) => void
 )
 type TextImage = {
 	width: number
@@ -122,15 +137,16 @@ type TextImage = {
 	text: string
 	path: string
 	osbPath: string
+	isOutline: boolean
 }
 ```
-Generate image with given text and create a new sprite for that image. It's recommended to use seperate contexts if you are using both `createText` and `createOutlineText`.
+Create a new sprite for a given text. It's recommended to use seperate contexts if you are using both `createText` and `createOutlineText`.
 
-### getTexturePositionForAlignment
+### ejectAllTextImages
 ```ts
-function getTexturePositionForAlignment(position: Vector2, origin: Origin, width: number, height: number, scale: number = 1): Vector2
+function ejectAllTextImages()
 ```
-See [#Usage](#usage) example.
+Eject all text images into osu storyboard folder. This returns a promise which will be fulfilled once every text image is ejected.
 
 ### useFont
 ```ts
