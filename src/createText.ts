@@ -1,5 +1,5 @@
 import { createSprite, Layer, Origin, Vector2 } from '@osbjs/tiny-osbjs'
-import { setToBeEjected } from 'cache'
+import { setToBeEjected } from 'eject'
 import { measureText } from 'measureText'
 import { join } from 'path'
 import { getCanvasContext, getCanvasInstance, getTxtGenContext, resizeCanvas } from 'txtGenContext'

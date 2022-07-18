@@ -1,4 +1,4 @@
-export { ejectAllTextImages } from 'cache'
+export { ejectAllTextImages } from 'eject'
 export { createOutlineText, createText } from 'createText'
 export * from 'isValidParams'
 export { measureText } from 'measureText'
