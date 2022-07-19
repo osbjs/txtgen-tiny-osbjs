@@ -8,7 +8,7 @@ import { Origin, Vector2 } from '@osbjs/tiny-osbjs'
  * @param width Text image's width.
  * @param height Text image's height.
  */
-export function getTopLeftPosition(position: Vector2, origin: Origin, width: number, height: number, scale: number = 1): Vector2 {
+export function computeTopLeftPosition(position: Vector2, origin: Origin, width: number, height: number, scale: number = 1): Vector2 {
 	const { x, y } = position
 
 	switch (origin) {

@@ -5,7 +5,7 @@ import { join } from 'path'
 import { getCanvasContext, getCanvasInstance, getTxtGenContext, resizeCanvas } from 'txtGenContext'
 import { TextImage } from 'types/TextImage'
 import { rgbToHex } from 'utils/colorConverters'
-import { getTopLeftPosition as _getTopLeftPosition } from 'utils/getTopLeftPosition'
+import { computeTopLeftPosition } from 'utils/computeTopLeftPosition'
 
 /**
  * Create a new sprite for a given text.
@@ -30,7 +30,7 @@ export function createText(
 	let textImage = createdTextImages.find((textImage) => textImage.text === text && !textImage.isOutline) || generateTextImage(text, false)
 
 	const getTopLeftPosition = (position: Vector2, scale: number = 1) =>
-		_getTopLeftPosition(position, origin, textImage.width, textImage.height, scale)
+		computeTopLeftPosition(position, origin, textImage.width, textImage.height, scale)
 
 	createSprite(textImage.osbPath, layer, origin, initialPosition, () => invokeFunction(textImage, getTopLeftPosition))
 }
@@ -59,7 +59,7 @@ export function createOutlineText(
 	let textImage = createdTextImages.find((textImage) => textImage.text === text && textImage.isOutline) || generateTextImage(text, true)
 
 	const getTopLeftPosition = (position: Vector2, scale: number = 1) =>
-		_getTopLeftPosition(position, origin, textImage.width, textImage.height, scale)
+		computeTopLeftPosition(position, origin, textImage.width, textImage.height, scale)
 
 	createSprite(textImage.osbPath, layer, origin, initialPosition, () => invokeFunction(textImage, getTopLeftPosition))
 }
