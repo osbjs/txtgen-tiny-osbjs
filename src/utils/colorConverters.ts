@@ -5,7 +5,7 @@ import { Color } from '@osbjs/tiny-osbjs'
  * @param color RGB color.
  */
 export function rgbToHex(color: Color): string {
-	const { r, g, b } = color
+	const [r, g, b] = color
 	if (typeof r !== 'number' || typeof g !== 'number' || typeof b !== 'number' || r > 255 || g > 255 || b > 255) {
 		throw new TypeError('Expected three numbers below 256')
 	}
@@ -23,5 +23,5 @@ export function hexToRgb(hex: string): Color {
 		g = parseInt('0x' + trimmed[2] + trimmed[3]) | 0,
 		b = parseInt('0x' + trimmed[4] + trimmed[5]) | 0
 
-	return { r, g, b }
+	return [r, g, b]
 }

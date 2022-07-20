@@ -79,10 +79,10 @@ function generateTextImage(text: string, isOutline: boolean): TextImage {
 	ctx.textBaseline = 'top'
 	// generate white text and then set color through command is better
 	if (!isOutline) {
-		ctx.fillStyle = rgbToHex({ r: 255, g: 255, b: 255 })
+		ctx.fillStyle = rgbToHex([255, 255, 255])
 		ctx.fillText(text, left, top)
 	} else {
-		ctx.strokeStyle = rgbToHex({ r: 255, g: 255, b: 255 })
+		ctx.strokeStyle = rgbToHex([255, 255, 255])
 		ctx.strokeText(text, left, top)
 	}
 
