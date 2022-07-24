@@ -4,7 +4,7 @@ import { measureText } from 'measureText'
 import { join } from 'path'
 import { getCanvasContext, getCanvasInstance, getTxtGenContext, resizeCanvas } from 'txtGenContext'
 import { TextImage } from 'types/TextImage'
-import { rgbToHex } from 'utils/colorConverters'
+import { rgbToHex } from 'utils/rgbToHex'
 import { computeTopLeftPosition } from 'utils/computeTopLeftPosition'
 
 /**
