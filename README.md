@@ -172,15 +172,3 @@ function measureLineHeight(
 )
 ```
 Get total line width/height by calling reducer on each letter in the line of text.
-
-### Convert color
-```ts
-function rgbToHex(color: Color): string 
-```
-Convert RGB color to hex color code.
-
-```ts
-function hexToRgb(hex: string): Color
-```
-Convert hex color code to RGB color.
-
