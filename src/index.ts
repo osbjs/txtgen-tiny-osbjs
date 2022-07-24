@@ -6,5 +6,4 @@ export { clearOutputFolder, createTxtGenContext, TextGeneratorContext, useFont, 
 export { FontProps } from 'types/FontProps'
 export { Padding } from 'types/Padding'
 export { TextImage } from 'types/TextImage'
-export * from 'utils/colorConverters'
 export * from 'utils/measureLine'
