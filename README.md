@@ -31,8 +31,8 @@ You can now create text images. `createText` will call `createSprite` under the 
 ```js
 const { createText } = require('@osbjs/txtgen-tiny-osbjs')
 
-createText('Hello', 'Background', 'Centre', { x: 320, y: 240 }, () => {
-	fade(0, 1000, 0, 1)
+createText('Hello', Layer.Background, Origin.Centre, [320, 240], () => {
+	fade([0, 1000], 0, 1)
 })
 ```
 
