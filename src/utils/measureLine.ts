@@ -13,9 +13,10 @@ export function measureLineWidth(
 	mode: 'char' | 'word' | any = 'char',
 	reducer: (prevWidth: number, currentWidth: number) => number = (prevWidth, currentWidth) => prevWidth + currentWidth
 ) {
-	const textWidthArr = line.split(mode === 'word' ? ' ' : '').map((text) => measureText(text).width)
+	const textArr = line.split(mode === 'word' ? ' ' : '')
+	const textWidthArr = textArr.map((text) => measureText(text).width)
 
-	return textWidthArr.reduce(reducer, 0)
+	return textWidthArr.reduce(reducer, 0) + (mode === 'word' ? (textArr.length - 1) * measureText(' ').width : 0)
 }
 
 /**
@@ -31,9 +32,10 @@ export function measureLineHeight(
 	mode: 'char' | 'word' | any = 'char',
 	reducer: (prevHeight: number, currentHeight: number) => number = (prevHeight, currentHeight) => prevHeight + currentHeight
 ) {
-	const textHeightArr = line.split(mode === 'word' ? ' ' : '').map((text) => measureText(text).height)
+	const textArr = line.split(mode === 'word' ? ' ' : '')
+	const textHeightArr = textArr.map((text) => measureText(text).height)
 
-	return textHeightArr.reduce(reducer, 0)
+	return textHeightArr.reduce(reducer, 0) + (mode === 'word' ? (textArr.length - 1) * measureText(' ').width : 0)
 }
 
 /**
