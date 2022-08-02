@@ -9,7 +9,7 @@ npm i @osbjs/tiny-osbjs @osbjs/txtgen-tiny-osbjs
 ## Usage
 Create a text generator context and set it for use. Make sure to clear the output folder after you create the context.
 ```js
-const { createTxtGenContext, useTxtGenContext } = require('@osbjs/txtgen-tiny-osbjs')
+import { createTxtGenContext, useTxtGenContext } from '@osbjs/txtgen-tiny-osbjs'
 
 const txtGenContext = createTxtGenContext('sb/lyrics', 'path/to/beatmap/folder', {
 	name: 'Arial',
@@ -29,7 +29,7 @@ useTxtGenContext(txtGenContext)
 
 You can now create text images. `createText` will call `createSprite` under the hood.
 ```js
-const { createText } = require('@osbjs/txtgen-tiny-osbjs')
+import { createText } from '@osbjs/txtgen-tiny-osbjs'
 
 createText('Hello', Layer.Background, Origin.Centre, [320, 240], () => {
 	fade([0, 1000], 0, 1)
@@ -38,7 +38,7 @@ createText('Hello', Layer.Background, Origin.Centre, [320, 240], () => {
 
 You can have multiple text generator context and switch between them if needed.
 ```ts
-const { createTxtGenContext, useTxtGenContext } = require('@osbjs/txtgen-tiny-osbjs')
+import { createTxtGenContext, useTxtGenContext } from '@osbjs/txtgen-tiny-osbjs'
 
 const font1Context = createTxtGenContext()
 const font2Context = createTxtGenContext()
@@ -56,7 +56,7 @@ useTxtGenContext(font1Context)
 
 If you want to use non-system fonts, specify it before creating and using context.
 ```js
-const { createText, useFont } = require('@osbjs/txtgen-tiny-osbjs')
+import { createText, useFont } from '@osbjs/txtgen-tiny-osbjs'
 
 useFont('FontName.ttf', 'FontName')
 const txtGenContext = createTxtGenContext('sb/lyrics', 'path/to/beatmap/folder', {
@@ -77,7 +77,7 @@ useTxtGenContext(txtGenContext)
 
 If you need to calculate line width/height of a straight line of text, we've got you covered.
 ```js
-const { measureLineWidth, measureLineHeight, createText } = require('@osbjs/txtgen-tiny-osbjs')
+import { measureLineWidth, measureLineHeight, createText } from '@osbjs/txtgen-tiny-osbjs'
 
 let text = 'Hello'
 const lineWidth = measureLineWidth(text),
@@ -164,11 +164,19 @@ Clear output folder of this current context. This should be called once for each
 ```ts
 function measureLineWidth(
 	line: string,
-	reducer: (prevWidth: number, currentWidth: number) => number = (prevWidth, currentWidth) => prevWidth + currentWidth
+	reducer: (prevWidth: number, currentWidth: number) => number = (prevWidth, currentWidth) => prevWidth + currentWidth,
+	mode: 'char' | 'word' = 'char'
 )
 function measureLineHeight(
 	line: string,
-	reducer: (prevHeight: number, currentHeight: number) => number = (prevHeight, currentHeight) => prevHeight + currentHeight
+	reducer: (prevHeight: number, currentHeight: number) => number = (prevHeight, currentHeight) => prevHeight + currentHeight,
+	mode: 'char' | 'word' = 'char'
 )
 ```
-Get total line width/height by calling reducer on each letter in the line of text.
+Get total line width/height by calling reducer on each character/word in the line of text.
+
+```ts
+function maxLineWidth(line: string, mode: 'char' | 'word' = 'char')
+function maxLineHeight(line: string, mode: 'char' | 'word' = 'char')
+```
+Get the maximum width/height of each character/word of the line of text.
