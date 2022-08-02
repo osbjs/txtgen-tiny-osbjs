@@ -164,19 +164,19 @@ Clear output folder of this current context. This should be called once for each
 ```ts
 function measureLineWidth(
 	line: string,
-	reducer: (prevWidth: number, currentWidth: number) => number = (prevWidth, currentWidth) => prevWidth + currentWidth,
-	mode: 'char' | 'word' = 'char'
+	mode: 'char' | 'word' | any = 'char',
+	reducer: (prevWidth: number, currentWidth: number) => number = (prevWidth, currentWidth) => prevWidth + currentWidth
 )
 function measureLineHeight(
 	line: string,
-	reducer: (prevHeight: number, currentHeight: number) => number = (prevHeight, currentHeight) => prevHeight + currentHeight,
-	mode: 'char' | 'word' = 'char'
+	mode: 'char' | 'word' | any = 'char',
+	reducer: (prevHeight: number, currentHeight: number) => number = (prevHeight, currentHeight) => prevHeight + currentHeight
 )
 ```
-Get total line width/height by calling reducer on each character/word in the line of text.
+Get total line width/height by calling reducer on each character/word in the line of text. It will default to character mode if `mode` is specified with anything but 'char' or 'word'.
 
 ```ts
-function maxLineWidth(line: string, mode: 'char' | 'word' = 'char')
-function maxLineHeight(line: string, mode: 'char' | 'word' = 'char')
+function maxLineWidth(line: string, mode: 'char' | 'word' | any = 'char')
+function maxLineHeight(line: string, mode: 'char' | 'word' | any = 'char')
 ```
-Get the maximum width/height of each character/word of the line of text.
+Get the maximum width/height of each character/word of the line of text. It will default to character mode if `mode` is specified with anything but 'char' or 'word'.
